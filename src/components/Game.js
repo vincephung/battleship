@@ -11,7 +11,6 @@ const Game = () => {
   const [computer, setComputer] = useState(Player('Computer'));
   const [turn, setTurn] = useState(playerOne);
   const [fleet, updateFleet] = useState(0);
-  const [resetFleet, setResetFleet] = useState(false);
 
   playerOne.enemy = computer;
   computer.enemy = playerOne;
@@ -32,7 +31,6 @@ const Game = () => {
       return;
     } //user needs to input 4 ships to start
 
-    //playerOne.autoPlaceFleet();
     setGameStart(true);
     computer.autoPlaceFleet();
     setGameEnd(false);
@@ -43,11 +41,8 @@ const Game = () => {
     setComputer(Player(computer.name));
     setGameEnd(false);
     setGameStart(false);
-    restartFleet(true);
-  };
-
-  const restartFleet = () => {
-    setResetFleet(false);
+    setGameWinner('');
+    updateFleet(0);
   };
 
   const handleClick = (i, j) => {
@@ -70,8 +65,7 @@ const Game = () => {
         <Fleet
           playerBoard={playerOne.playerBoard}
           renderShips={renderShips}
-          resetFleet={resetFleet}
-          restartFleet={restartFleet}
+          gameStart={gameStart}
         />
         <Board
           name="PlayerOne"

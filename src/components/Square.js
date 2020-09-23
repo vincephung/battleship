@@ -38,7 +38,7 @@ const Square = (props) => {
     } else if (boardSquare === null) {
       return '';
     } else {
-      return 'boardShip';
+      if (props.name === 'PlayerOne') return 'boardShip';
     }
   };
 

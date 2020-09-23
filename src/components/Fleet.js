@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Ship from '../factories/ship';
 
 const Fleet = (props) => {
@@ -11,14 +11,16 @@ const Fleet = (props) => {
   const [carrier, disableCarrier] = useState(false);
   const [submit, disableSubmit] = useState(false);
 
-  if (props.resetFleet) {
-    disableDestroyer(false);
-    disableCruiser(false);
-    disableBattleship(false);
-    disableCarrier(false);
-    disableSubmit(false);
-    props.restartFleet(false);
-  }
+  useEffect(() => {
+    //resets buttons when game resets
+    if (props.gameStart) {
+      disableDestroyer(false);
+      disableCruiser(false);
+      disableBattleship(false);
+      disableCarrier(false);
+      disableSubmit(false);
+    }
+  }, [props.gameStart]);
 
   const handleChange = (e) => {
     const { value, type } = e.target;
@@ -55,7 +57,6 @@ const Fleet = (props) => {
     }
   };
 
-  // MAYBE HANDLE submit should go into game module so it can update state
   const handleSubmit = (e) => {
     e.preventDefault();
     let i = parseInt(coordinates.charAt(0));
